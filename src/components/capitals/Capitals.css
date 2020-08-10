@@ -53,3 +53,7 @@
 .game__again:hover {
   background-color: #81c928 !important;
 }
+
+.correct {
+  background-color: #81c928 !important;
+}
