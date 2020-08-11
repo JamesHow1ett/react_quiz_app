@@ -1,0 +1,19 @@
+.game-board_flag {
+    width: 460px;
+    min-height: 715px;
+    border-radius: 24px;
+    background-color: #faf9f7;
+    padding: 38px 32px;
+}
+
+.game__answer {
+    border: 2px solid rgba(96, 102, 208, 0.7) !important;
+    border-radius: 12px !important;
+    padding: 15px 0 !important;
+    color: rgba(96, 102, 208, 0.8) !important;
+}
+
+.game__flag {
+    width: 104px;
+    height: 74px;
+}
