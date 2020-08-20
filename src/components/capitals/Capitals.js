@@ -41,8 +41,8 @@ function Capitals() {
           questions: [
             [data[code].name, randomInteger(0, 10)],
             [data[setIndex(code, randomInteger())].name, randomInteger(0, 10)],
-            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10) + 1],
-            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10) + 1]
+            [data[setIndex(code, randomInteger(10, 40))].name, randomInteger(0, 10)],
+            [data[setIndex(code, randomInteger(0, 15))].name, randomInteger(0, 10)]
           ],
           answer: data[code].name
         });

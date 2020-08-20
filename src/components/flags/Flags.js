@@ -30,8 +30,8 @@ function Flags() {
           questions: [
             [data[code].name, randomInteger(0, 10)],
             [data[setIndex(code, randomInteger())].name, randomInteger(0, 10)],
-            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10) + 1],
-            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10) + 1]
+            [data[setIndex(code, randomInteger(1, 35))].name, randomInteger(0, 10)],
+            [data[setIndex(code, randomInteger(4, 47))].name, randomInteger(0, 10)]
           ],
           answer: data[code].name
         });
