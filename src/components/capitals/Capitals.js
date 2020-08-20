@@ -5,7 +5,6 @@ import postData from '../../Api';
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-//import Link from '@material-ui/core/Link';
 //styles
 import './Capitals.css';
 
@@ -34,16 +33,27 @@ function Capitals() {
     setIsWrong(!isWrong);
   }
 
-  // function checkAnswer(event) {
-  //   let target = event.target;
-  //   target.offsetParent.classList.add('correct');
-  //   setTimeout(nextQustion(), 1000);
-  // }
+  function addQuestions(data, code) {
+    let arr = [];
+    if(data[code] !== undefined) {
+      arr.push(
+        {
+          questions: [
+            [data[code].name, randomInteger(0, 10)],
+            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10)],
+            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10) + 1],
+            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10) + 1]
+          ],
+          answer: data[code].name
+        });
+    }
+    return arr;
+  }
 
   function nextQustion() {
     setCode(code + 1);
     setQuestion(question + 1);
-    setResult(result + 1);
+    setResult(prev => prev + 1);
     if (question > 9) {
       setFinalMsg('Congratulation, you answer right to all questions');
       setIsWrong(!isWrong);
@@ -60,11 +70,7 @@ function Capitals() {
     let range = 52;
     if (index > range) {
       return 0 + randomInteger;
-    } else {
-
     }
-    
-    
     return index;
   }
 
@@ -73,6 +79,20 @@ function Capitals() {
     setCode(0 + randomInteger());
     setQuestion(1);
   }
+
+  function checkAnswer(event, answer) {
+    let target = event.target;
+    if (target.textContent === answer) {
+      nextQustion();
+    } else {
+      wrongAnswer();
+    }
+  }
+
+  const listItems = addQuestions(recivedData, code).map((item) => (item.questions.sort((a, b) => a[1] > b[1]).map((quiz) => {
+    return (<li className="game__answer font-poppins" key={quiz} onClick={(event) => {checkAnswer(event, item.answer)}}>{quiz[0]}</li>)
+  })));
+
 
   return isWrong ? (
     <div className="capitals-block">
@@ -95,13 +115,10 @@ function Capitals() {
         </Grid>
         <Typography variant="h6" component="h4" className="game__question-counter font-poppins">Question {question} is 10</Typography>
         <Typography variant="h4" component="h4" className="game__quiz font-poppins">{recivedData[code] && recivedData[code].capital} is a capital of</Typography>
-        <Button className="game__answer font-poppins" onClick={() => {wrongAnswer()}}>{recivedData[code] && recivedData[setIndex(code, randomInteger())].name}</Button>
-        <Button className="game__answer font-poppins" onClick={() => {nextQustion()}}>{recivedData[code] && recivedData[code].name}</Button>
-        <Button className="game__answer font-poppins" onClick={() => {wrongAnswer()}}>{recivedData[code] && recivedData[setIndex(code, randomInteger())].name}</Button>
-        <Button className="game__answer font-poppins" onClick={() => {wrongAnswer()}}>{recivedData[code] && recivedData[setIndex(code, randomInteger())].name}</Button>
+        <ul className="answers">{listItems}</ul>
       </Grid>
       <Typography className="sign font-poppins">Created by 
-        <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noreferrer" className="sing-link">A.Skorokhod</a>
+        <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noopener noreferrer" className="sing-link">A.Skorokhod</a>
       </Typography>
     </div>
   ) : (
@@ -120,7 +137,7 @@ function Capitals() {
         <Button className="game__again font-poppins" onClick={() => {tryAgain()}}>Try again</Button>
       </Grid>
       <Typography className="sign font-poppins">Created by 
-        <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noreferrer" className="sing-link">A.Skorokhod</a>
+        <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noopener noreferrer" className="sing-link">A.Skorokhod</a>
       </Typography>
     </div>
   )

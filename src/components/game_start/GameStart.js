@@ -10,23 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import "./GameStart.css";
 
 function GameStart() {
-  // const [recivedData, setRecivedData] = useState({});
-  // const [questions, setQuestion] = useState([]);
-  
-  // useEffect(() => {
-  //   postData()
-  //     .then(res => setRecivedData(res))
-  //     .catch(error => console.log(error));
-  // }, []);
-
-  // function getQuest(event) {
-  //   setQuestion(recivedData[randomInteger()])
-  // }
-
-  // function randomInteger(min = 0, max = 52) {
-  //   let rand = min + Math.random() * (max + 1 - min);
-  //   return Math.floor(rand);
-  // }
 
 
   return (
@@ -42,7 +25,7 @@ function GameStart() {
         </Grid>
       </Container>
       <Typography className="sign font-poppins">Created by 
-        <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noreferrer" className="sing-link">A.Skorokhod</a>
+        <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noopener noreferrer" className="sing-link">A.Skorokhod</a>
       </Typography>
     </div>
   )
