@@ -22,6 +22,23 @@ function Flags() {
       .catch(error => console.log(error));
   }, []);
 
+  function addQuestions(data, code) {
+    let arr = [];
+    if(data[code] !== undefined) {
+      arr.push(
+        {
+          questions: [
+            [data[code].name, randomInteger(0, 10)],
+            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10)],
+            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10) + 1],
+            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10) + 1]
+          ],
+          answer: data[code].name
+        });
+    }
+    return arr;
+  }
+ 
   function tryAgain(event) {
     setIsWrong(!isWrong);
     setResult(0);
@@ -57,11 +74,18 @@ function Flags() {
     return index;
   }
 
-  function reset() {
-    setResult(0);
-    setCode(0 + randomInteger());
-    setQuestion(1);
+  function checkAnswer(event, answer) {
+    let target = event.target;
+    if (target.textContent === answer) {
+      nextQustion();
+    } else {
+      wrongAnswer();
+    }
   }
+
+  const listItems = addQuestions(recivedData, code).map((item) => (item.questions.sort((a, b) => a[1] > b[1]).map((quiz) => {
+    return (<li className="game__answer font-poppins" key={quiz} onClick={(event) => {checkAnswer(event, item.answer)}}>{quiz[0]}</li>)
+  })));
 
   return isWrong ? (
     <div className="capitals-block">
@@ -80,17 +104,13 @@ function Flags() {
           alignItems="center"
         >
           <Button variant="outlined" component={Link} to="/" className="game__buttons game__buttons_home font-poppins">Home</Button>
-          <Button variant="outlined" className="game__buttons game__buttons_reset font-poppins" onClick={() => {reset()}}>Reset</Button>
         </Grid>
         <Typography variant="h6" component="h4" className="game__question-counter font-poppins">Question {question} is 10</Typography>
         <div>
-          <img src={recivedData[code] && recivedData[code].flag} className="game__flag"></img>
+          <img src={recivedData[code] && recivedData[code].flag} alt={`flag of ${recivedData[code] && recivedData[code].name}`} className="game__flag"></img>
         </div>
         <Typography variant="h4" component="h4" className="game__quiz font-poppins">Which country does this flag belong to?</Typography>
-        <Button className="game__answer font-poppins" onClick={() => {wrongAnswer()}}>{recivedData[code] && recivedData[setIndex(code, randomInteger())].name}</Button>
-        <Button className="game__answer font-poppins" onClick={() => {nextQustion()}}>{recivedData[code] && recivedData[code].name}</Button>
-        <Button className="game__answer font-poppins" onClick={() => {wrongAnswer()}}>{recivedData[code] && recivedData[setIndex(code, randomInteger())].name}</Button>
-        <Button className="game__answer font-poppins" onClick={() => {wrongAnswer()}}>{recivedData[code] && recivedData[setIndex(code, randomInteger())].name}</Button>
+        {<ul className="answers">{listItems}</ul>}
       </Grid>
       <Typography className="sign font-poppins">Created by 
         <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noreferrer" className="sing-link">A.Skorokhod</a>

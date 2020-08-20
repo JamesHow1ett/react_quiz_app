@@ -74,12 +74,6 @@ function Capitals() {
     return index;
   }
 
-  function reset() {
-    setResult(0);
-    setCode(0 + randomInteger());
-    setQuestion(1);
-  }
-
   function checkAnswer(event, answer) {
     let target = event.target;
     if (target.textContent === answer) {
@@ -111,7 +105,6 @@ function Capitals() {
           alignItems="center"
         >
           <Button variant="outlined" component={Link} to="/" className="game__buttons game__buttons_home font-poppins">Home</Button>
-          <Button variant="outlined" className="game__buttons game__buttons_reset font-poppins" onClick={() => {reset()}}>Reset</Button>
         </Grid>
         <Typography variant="h6" component="h4" className="game__question-counter font-poppins">Question {question} is 10</Typography>
         <Typography variant="h4" component="h4" className="game__quiz font-poppins">{recivedData[code] && recivedData[code].capital} is a capital of</Typography>
