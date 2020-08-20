@@ -132,7 +132,7 @@ function Flags() {
         <Button className="game__again font-poppins" onClick={() => {tryAgain()}}>Try again</Button>
       </Grid>
       <Typography className="sign font-poppins">Created by 
-        <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noreferrer" className="sing-link">A.Skorokhod</a>
+        <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noopener noreferrer" className="sing-link">A.Skorokhod</a>
       </Typography>
     </div>
   )
