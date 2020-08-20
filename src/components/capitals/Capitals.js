@@ -39,10 +39,10 @@ function Capitals() {
       arr.push(
         {
           questions: [
-            [data[code].name, randomInteger(0, 10)],
-            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10)],
-            [data[setIndex(code, randomInteger(10, 40))].name, randomInteger(0, 10)],
-            [data[setIndex(code, randomInteger(0, 15))].name, randomInteger(0, 10)]
+            [data[code].name, randomInteger(0, 100)],
+            [data[setIndex(code, randomInteger(0, 30))].name, randomInteger(0, 100)],
+            [data[setIndex(code, randomInteger(10, 40))].name, randomInteger(0, 100)],
+            [data[setIndex(code, randomInteger(0, 15))].name, randomInteger(0, 100)]
           ],
           answer: data[code].name
         });

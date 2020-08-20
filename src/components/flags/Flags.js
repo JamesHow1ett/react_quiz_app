@@ -28,10 +28,10 @@ function Flags() {
       arr.push(
         {
           questions: [
-            [data[code].name, randomInteger(0, 10)],
-            [data[setIndex(code, randomInteger())].name, randomInteger(0, 10)],
-            [data[setIndex(code, randomInteger(1, 35))].name, randomInteger(0, 10)],
-            [data[setIndex(code, randomInteger(4, 47))].name, randomInteger(0, 10)]
+            [data[code].name, randomInteger(0, 100)],
+            [data[setIndex(code, randomInteger(0, 30))].name, randomInteger(0, 100)],
+            [data[setIndex(code, randomInteger(1, 35))].name, randomInteger(0, 100)],
+            [data[setIndex(code, randomInteger(4, 47))].name, randomInteger(0, 100)]
           ],
           answer: data[code].name
         });
