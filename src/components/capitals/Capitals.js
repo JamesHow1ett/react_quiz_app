@@ -40,9 +40,9 @@ function Capitals() {
         {
           questions: [
             [data[code].name, randomInteger(0, 100)],
-            [data[setIndex(code, randomInteger(0, 30))].name, randomInteger(0, 100)],
-            [data[setIndex(code, randomInteger(10, 40))].name, randomInteger(0, 100)],
-            [data[setIndex(code, randomInteger(0, 15))].name, randomInteger(0, 100)]
+            [data[setIndex(code, randomInteger(0, 20))].name, randomInteger(0, 100)],
+            [data[setIndex(code, randomInteger(21, 40))].name, randomInteger(0, 100)],
+            [data[setIndex(code, randomInteger(41, 50))].name, randomInteger(0, 100)]
           ],
           answer: data[code].name
         });
@@ -54,6 +54,13 @@ function Capitals() {
     setCode(code + 1);
     setQuestion(question + 1);
     setResult(prev => prev + 1);
+    if (localStorage.getItem('record-capitals')) {
+      if (result + 1 > localStorage.getItem('record-capitals')) {
+        localStorage.setItem('record-capitals', result + 1);
+      }
+    } else {
+      localStorage.setItem('record-capitals', 1);
+    }
     if (question > 9) {
       setFinalMsg('Congratulation, you answer right to all questions');
       setIsWrong(!isWrong);
@@ -69,9 +76,10 @@ function Capitals() {
     let index = code + randomInteger;
     let range = 52;
     if (index > range) {
-      return 0 + randomInteger;
+      let x = 0 + randomInteger;
+      return x === code ? x + 1 : x;
     }
-    return index;
+    return index === code ? index + 1 : index;
   }
 
   function checkAnswer(event, answer) {
@@ -105,6 +113,9 @@ function Capitals() {
           alignItems="center"
         >
           <Button variant="outlined" component={Link} to="/" className="game__buttons game__buttons_home font-poppins">Home</Button>
+          <Typography variant="h6" component="h4" className="game__record font-poppins">Record:&nbsp;
+            {localStorage.getItem('record-capitals') ? localStorage.getItem('record-capitals') : 0}
+          </Typography>
         </Grid>
         <Typography variant="h6" component="h4" className="game__question-counter font-poppins">Question {question} is 10</Typography>
         <Typography variant="h4" component="h4" className="game__quiz font-poppins">{recivedData[code] && recivedData[code].capital} is a capital of</Typography>

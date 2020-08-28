@@ -54,6 +54,13 @@ function Flags() {
     setCode(code + 1);
     setQuestion(question + 1);
     setResult(result + 1);
+    if (localStorage.getItem('record-flags')) {
+      if (result + 1 > localStorage.getItem('record-flags')) {
+        localStorage.setItem('record-flags', result + 1);
+      }
+    } else {
+      localStorage.setItem('record-flags', 1);
+    }
     if (question > 9) {
       setFinalMsg('Congratulation, you answer right to all questions');
       setIsWrong(!isWrong);
@@ -69,9 +76,10 @@ function Flags() {
     let index = code + randomInteger;
     let range = 52;
     if (index > range) {
-      return 0 + randomInteger;
+      let x = 0 + randomInteger;
+      return x === code ? x + 1 : x;
     }
-    return index;
+    return index === code ? index + 1 : index;
   }
 
   function checkAnswer(event, answer) {
@@ -83,8 +91,8 @@ function Flags() {
     }
   }
 
-  const listItems = addQuestions(recivedData, code).map((item) => (item.questions.sort((a, b) => a[1] > b[1]).map((quiz) => {
-    return (<li className="game__answer font-poppins" key={quiz} onClick={(event) => {checkAnswer(event, item.answer)}}>{quiz[0]}</li>)
+  const listItems = addQuestions(recivedData, code).map((item) => (item['questions'].sort((a, b) => a[1] > b[1]).map((quiz) => {
+    return (<li className="game__answer font-poppins" data-n={quiz[1]} key={quiz} onClick={(event) => {checkAnswer(event, item.answer)}}>{quiz[0]}</li>)
   })));
 
   return isWrong ? (
@@ -104,13 +112,16 @@ function Flags() {
           alignItems="center"
         >
           <Button variant="outlined" component={Link} to="/" className="game__buttons game__buttons_home font-poppins">Home</Button>
+          <Typography variant="h6" component="h4" className="game__record font-poppins">Record:&nbsp;
+            {localStorage.getItem('record-flags') ? localStorage.getItem('record-flags') : 0}
+          </Typography>
         </Grid>
         <Typography variant="h6" component="h4" className="game__question-counter font-poppins">Question {question} is 10</Typography>
         <div>
-          <img src={recivedData[code] && recivedData[code].flag} alt={`flag of ${recivedData[code] && recivedData[code].name}`} className="game__flag"></img>
+          <img src={recivedData[code] && recivedData[code].flag} alt={`flag of ${recivedData[code] && recivedData[code].numericCode}`} className="game__flag"></img>
         </div>
         <Typography variant="h4" component="h4" className="game__quiz font-poppins">Which country does this flag belong to?</Typography>
-        {<ul className="answers">{listItems}</ul>}
+        <ul className="answers">{listItems}</ul>
       </Grid>
       <Typography className="sign font-poppins">Created by 
         <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noopener noreferrer" className="sing-link">A.Skorokhod</a>

@@ -23,6 +23,10 @@
   padding: 38px 32px;
 }
 
+.game__record {
+  color: #1D355D;
+}
+
 .game__question-counter {
   color: #8F93DE;
 }

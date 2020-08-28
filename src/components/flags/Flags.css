@@ -16,4 +16,7 @@
 .game__flag {
     width: 104px;
     height: 74px;
+    box-sizing: border-box;
+    border: 1px solid #2f527b;
+    object-fit: cover;
 }
