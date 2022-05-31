@@ -7,11 +7,9 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
-import "./GameStart.css";
+import './GameStart.css';
 
 function GameStart() {
-
-
   return (
     <div>
       <Container maxWidth="sm" className="game-start font-poppins">
@@ -24,12 +22,12 @@ function GameStart() {
           <Button variant="outlined" component={Link} to="/flags" className="game-start__button font-poppins">Flags</Button>
         </Grid>
       </Container>
-      <Typography className="sign font-poppins">Created by 
+      <Typography className="sign font-poppins">
+        Created by
         <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noopener noreferrer" className="sing-link">A.Skorokhod</a>
       </Typography>
     </div>
-  )
+  );
 }
 
-
-export default GameStart
+export default GameStart;
