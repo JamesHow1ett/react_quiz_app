@@ -1,164 +1,82 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 // components
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import postData from '../../Api';
+
+import Button from '../button/Button';
+import QuestionList from '../questionList/QuestionList';
 // styles
 import './Capitals.css';
 
-function Capitals() {
-  const [isWrong, setIsWrong] = useState(true);
-  const [recivedData, setRecivedData] = useState({});
-  const [question, setQuestion] = useState(1);
-  const [code, setCode] = useState(0 + randomInteger());
+import postData from '../../Api';
+import { randomInteger } from '../../utils/utils';
+
+import { useQuizQuestions } from '../../hooks/useQuizQuestions';
+
+// eslint-disable-next-line react/prop-types
+function Capitals({ onTryAgain }) {
   const [result, setResult] = useState(0);
-  const [finalMsg, setFinalMsg] = useState('Whoops, you are make mistake');
+  const [currentQuestion, setCurrentQuestion] = useState({
+    data: {},
+    index: 0,
+  });
+  const { questions, loading } = useQuizQuestions({});
 
   useEffect(() => {
-    postData()
-      .then((res) => setRecivedData(res))
-      .catch((error) => console.log(error));
-  }, []);
+    setCurrentQuestion({
+      data: { ...questions[0] },
+      index: 0,
+    });
+  }, [questions]);
 
-  function tryAgain(event) {
-    setIsWrong(!isWrong);
-    setResult(0);
-    setCode(0 + randomInteger());
-    setQuestion(1);
-  }
+  const nextQustion = () => {
+    const nextQustionIndex = currentQuestion.index + 1;
+    setCurrentQuestion({
+      data: { ...questions[nextQustionIndex] },
+      index: nextQustionIndex,
+    });
+  };
 
-  function wrongAnswer(event) {
-    setIsWrong(!isWrong);
-  }
+  const onAnswer = (answer) => {
+    console.log(answer);
+  };
 
-  function addQuestions(data, code) {
-    const arr = [];
-    if (data[code] !== undefined) {
-      arr.push(
-        {
-          questions: [
-            [data[code].name, randomInteger(0, 100)],
-            [data[setIndex(code, randomInteger(0, 20))].name, randomInteger(0, 100)],
-            [data[setIndex(code, randomInteger(21, 40))].name, randomInteger(0, 100)],
-            [data[setIndex(code, randomInteger(41, 50))].name, randomInteger(0, 100)],
-          ],
-          answer: data[code].name,
-        },
-      );
-    }
-    return arr;
-  }
-
-  function nextQustion() {
-    setCode(code + 1);
-    setQuestion(question + 1);
-    setResult((prev) => prev + 1);
-    if (localStorage.getItem('record-capitals')) {
-      if (result + 1 > localStorage.getItem('record-capitals')) {
-        localStorage.setItem('record-capitals', result + 1);
-      }
-    } else {
-      localStorage.setItem('record-capitals', 1);
-    }
-    if (question > 9) {
-      setFinalMsg('Congratulation, you answer right to all questions');
-      setIsWrong(!isWrong);
-    }
-  }
-
-  function randomInteger(min = 0, max = 42) {
-    const rand = min + Math.random() * (max + 1 - min);
-    return Math.floor(rand);
-  }
-
-  function setIndex(code, randomInteger) {
-    const index = code + randomInteger;
-    const range = 52;
-    if (index > range) {
-      const x = 0 + randomInteger;
-      return x === code ? x + 1 : x;
-    }
-    return index === code ? index + 1 : index;
-  }
-
-  function checkAnswer(event, answer) {
-    const { target } = event;
-    if (target.textContent === answer) {
-      nextQustion();
-    } else {
-      wrongAnswer();
-    }
-  }
-
-  const listItems = addQuestions(recivedData, code).map((item) => (item.questions.sort((a, b) => a[1] > b[1]).map((quiz) => (<li className="game__answer font-poppins" key={quiz} onClick={(event) => { checkAnswer(event, item.answer); }}>{quiz[0]}</li>))));
-
-  return isWrong ? (
+  return (
     <div className="capitals-block">
-      <Typography className="capitals__label font-poppins">Capitals Quiz</Typography>
-      <Grid
+      <h2 className="capitals__label font-poppins">Capitals Quiz</h2>
+      <div
         container
         direction="column"
         justify="space-between"
         alignItems="stretch"
         className="game-board"
       >
-        <Grid
+        <div
           container
           direction="row"
           justify="space-around"
           alignItems="center"
         >
-          <Button variant="outlined" component={Link} to="/" className="game__buttons game__buttons_home font-poppins">Home</Button>
-          <Typography variant="h6" component="h4" className="game__record font-poppins">
+          <Button
+            variant="outlined"
+            className="game__buttons game__buttons_home font-poppins"
+            onClick={() => onTryAgain()}
+          >
+            Home
+          </Button>
+          <span className="game__record font-poppins">
             Record:&nbsp;
-            {localStorage.getItem('record-capitals') ? localStorage.getItem('record-capitals') : 0}
-          </Typography>
-        </Grid>
-        <Typography variant="h6" component="h4" className="game__question-counter font-poppins">
-          Question
-          {' '}
-          {question}
-          {' '}
-          is 10
-        </Typography>
-        <Typography variant="h4" component="h4" className="game__quiz font-poppins">
-          {recivedData[code] && recivedData[code].capital}
-          {' '}
-          is a capital of
-        </Typography>
-        <ul className="answers">{listItems}</ul>
-      </Grid>
-      <Typography className="sign font-poppins">
-        Created by
-        <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noopener noreferrer" className="sing-link">A.Skorokhod</a>
-      </Typography>
-    </div>
-  ) : (
-    <div className="capitals-block">
-      <Typography className="capitals__label font-poppins">Capitals Quiz</Typography>
-      <Grid
-        container
-        direction="column"
-        justify="space-between"
-        alignItems="center"
-        className="game-board"
-      >
-        <Button variant="outlined" component={Link} to="/" className="game__buttons game__buttons_home font-poppins">Home</Button>
-        <Typography variant="h4" component="h4" className="font-poppins">{finalMsg}</Typography>
-        <Typography variant="h4" component="h4" className="font-poppins">
-          Results:
-          {' '}
-          {result}
-          /10
-        </Typography>
-        <Button className="game__again font-poppins" onClick={() => { tryAgain(); }}>Try again</Button>
-      </Grid>
-      <Typography className="sign font-poppins">
-        Created by
-        <a href="https://www.linkedin.com/in/aleksandr-skorokhod-4630871b2/" target="_blank" rel="noopener noreferrer" className="sing-link">A.Skorokhod</a>
-      </Typography>
+            {localStorage.getItem('record-capitals') || 0}
+          </span>
+        </div>
+        <span className="game__question-counter font-poppins">
+          Question&nbsp;
+          {currentQuestion.data.index ? currentQuestion.data.index + 1 : 1}
+          &nbsp;is 10
+        </span>
+        <span className="game__quiz font-poppins">
+          {currentQuestion.data.question ?? ''}
+        </span>
+        <QuestionList currentQuestion={currentQuestion} onAnswer={onAnswer} />
+      </div>
     </div>
   );
 }

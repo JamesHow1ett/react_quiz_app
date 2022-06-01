@@ -17,7 +17,6 @@
 
 .game-board {
   width: 460px;
-  height: 515px;
   border-radius: 24px;
   background-color: #faf9f7;
   padding: 38px 32px;
@@ -48,17 +47,46 @@
   cursor: pointer;
 }
 
-.game__answer {
-  border: 2px solid rgba(96, 102, 208, 0.7) !important;
-  border-radius: 12px !important;
-  padding: 15px 0 !important;
-  color: rgba(96, 102, 208, 0.8) !important;
+.answers .game__answer {
+  height: 65px;
+  border: 2px solid;
+  border-color: rgba(96, 102, 208, 0.7);
+  border-radius: 12px;
+  padding: 15px 20px;
+  color: rgba(96, 102, 208, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 40px;
 }
 
-.game__answer:hover {
-  background: #F9A826 !important;
-  border-color: #F9A826 !important;
-  color: #fff !important;
+.answers .game__answer:hover {
+  background: #F9A826;
+  border-color: #F9A826;
+  color: #fff;
+}
+
+.answers .game__answer .number {
+  font-weight: 500;
+}
+
+.answers .game__answer .number,
+.answers .game__answer .content {
+  text-align: left;
+}
+
+.answers .game__answer .number,
+.answers .game__answer .icon {
+  flex: 0 0 15%;
+}
+
+.answers .game__answer .icon-done,
+.answers .game__answer .icon-wrong {
+  display: none;
+}
+
+.answers .game__answer .content {
+  flex: 1 1 70%;
 }
 
 .game__again {
@@ -72,8 +100,33 @@
   background-color: #81c928 !important;
 }
 
-.correct {
-  background-color: #81c928 !important;
+.answers .game__answer.clicked {
+  border-color: #F9A826 !important;
+}
+
+.answers .game__answer.wrong {
+  background-color: #EA8282;
+  border-color: #EA8282;
+  color: #fff;
+
+}
+
+.answers .game__answer.wrong .icon-wrong {
+  display: inline;
+}
+
+.answers .game__answer.correct {
+  background-color: #60BF88;
+  border-color: #60BF88;
+  color: #fff;
+}
+
+.answers .game__answer.correct .icon-wrong {
+  display: none;
+}
+
+.answers .game__answer.correct .icon-done {
+  display: inline;
 }
 
 .game__buttons {

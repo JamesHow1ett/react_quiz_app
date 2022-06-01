@@ -1,34 +1,18 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
+import React, { useState } from 'react';
 import './App.css';
 import GameStart from './components/game_start/GameStart';
 import Capitals from './components/capitals/Capitals';
-import Flags from './components/flags/Flags';
+import Footer from './components/footer/Footer';
 
 function App() {
+  const [isGameStarted, setIsGameStarted] = useState(true);
+
+  const handleTryAgain = () => setIsGameStarted(false);
+
   return (
     <div className="App">
-      <Router>
-        <Route exact path="/">
-          <GameStart />
-        </Route>
-        <Switch>
-          <Route path="/capitals">
-            <Capitals />
-          </Route>
-          <Route path="/flags">
-            <Flags />
-          </Route>
-          <Route path="*">
-            <Redirect to="/" />
-          </Route>
-        </Switch>
-      </Router>
+      { isGameStarted ? <Capitals onTryAgain={handleTryAgain} /> : <GameStart /> }
+      <Footer />
     </div>
   );
 }
