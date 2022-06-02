@@ -5,9 +5,10 @@ export const ANSWER_NUMBER = {
   3: 'D',
 };
 
-const HtmlLatina = {
+const HtmlSymbols = {
   '&iacute;': 'í',
   '&oacute;': 'ó',
+  '&#039;': "'",
 };
 
 export const keyPressHandler = (event) => {};
@@ -16,4 +17,4 @@ export const keyPressHandler = (event) => {};
  * @param {String} input - question title with unicode
  * @returns {String} - question title parsed unicode
  */
-export const converUnicode = (input) => input.replace(/&[a-z]{1,};/g, (a) => HtmlLatina[a]);
+export const converUnicode = (input) => input.replace(/&[a-z#0-9]{1,};/g, (a) => HtmlSymbols[a]);

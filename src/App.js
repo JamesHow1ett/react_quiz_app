@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
 import './App.css';
 import GameStart from './components/game_start/GameStart';
-import Capitals from './components/capitals/Capitals';
+import GameBoard from './components/game_board/GameBoard';
 import Footer from './components/footer/Footer';
 
 function App() {
   const [isGameStarted, setIsGameStarted] = useState(true);
+  const [gameOptions, setGameOptions] = useState({});
 
-  const handleTryAgain = () => setIsGameStarted(false);
+  const handleGemeStart = (options) => {
+    setGameOptions(options);
+    setIsGameStarted(true);
+  };
+
+  const GameComponent = isGameStarted
+    ? (<GameBoard gameOptions={gameOptions} onNewGame={() => setIsGameStarted(false)} />)
+    : <GameStart onSelectOptions={handleGemeStart} />;
 
   return (
     <div className="App">
-      { isGameStarted ? <Capitals onTryAgain={handleTryAgain} /> : <GameStart /> }
+      { GameComponent }
       <Footer />
     </div>
   );

@@ -2,34 +2,28 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { ANSWER_NUMBER, converUnicode } from './helpers';
+import { ANSWER_NUMBER, converUnicode } from './utils/helpers';
 
 function QuestionList({ currentQuestion, onAnswer }) {
   const [isAnswered, setIsAnswered] = useState(false);
   const [answer, setAnswer] = useState({ text: '', index: -1 });
 
+  useEffect(() => {
+    setIsAnswered(false);
+  }, [currentQuestion]);
+
   const liClasses = 'game__answer font-poppin';
 
-  const handleUserAnswer = ({ item, idx }, event = null) => {
+  const handleUserAnswer = ({ item, idx }) => {
     if (isAnswered) {
       return;
     }
 
     setIsAnswered(true);
-
-    if (event) {
-      console.log(event);
-
-      setAnswer({
-        text: item,
-        index: idx,
-      });
-    } else {
-      setAnswer({
-        text: item,
-        index: idx,
-      });
-    }
+    setAnswer({
+      text: item,
+      index: idx,
+    });
 
     setIsAnswered(true);
     setAnswer({
@@ -39,15 +33,14 @@ function QuestionList({ currentQuestion, onAnswer }) {
     onAnswer(item);
   };
 
-  const test = (event) => handleUserAnswer({ item: 'test', idx: 1 }, event);
-
   const liItem = ({
     item, idx, safeKey, classes = liClasses,
   }) => (
     <li
       key={safeKey}
       className={classes}
-      onKeyDown={test}
+      // FIXME
+      onKeyDown={() => {}}
       role="option"
       datatype={item}
       aria-selected
@@ -68,7 +61,8 @@ function QuestionList({ currentQuestion, onAnswer }) {
     </li>
   );
 
-  const listItems = () => currentQuestion?.data?.options?.sort().map((item, idx) => {
+  // const listItems = () => currentQuestion?.data?.options?.sort().map((item, idx) => {
+  const listItems = () => currentQuestion?.data?.options?.map((item, idx) => {
     const safeKey = `${item}${idx}`;
 
     if (isAnswered) {

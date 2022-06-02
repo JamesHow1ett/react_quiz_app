@@ -19,11 +19,56 @@
   width: 460px;
   border-radius: 24px;
   background-color: #faf9f7;
-  padding: 38px 32px;
+  padding: 32px;
+}
+
+.game__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .game__record {
   color: #1D355D;
+}
+
+.game__result {
+  display: flex;
+  flex-direction: column;
+  row-gap: 70px;
+}
+
+.game__result .result-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.game__result .result-text__title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 72px;
+  color: #1D355D;
+}
+
+.game__result .result-text__text {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  color: #1D355D;
+}
+
+.game__result .result-text__score {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 54px;
+  color: #60BF88;
+}
+
+.game__question {
+  padding: 5px 0px 15px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }
 
 .game__question-counter {
@@ -37,9 +82,20 @@
   color: #2F527B;
 }
 
+.game__go-next {
+  padding-top: 25px;
+  min-height: 70px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .answers {
-  padding-left: 0;
+  padding: 0;
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+  margin: 0;
 }
 
 .answers li {
@@ -143,4 +199,9 @@
 .game__buttons_reset:hover {
   background-color: #d9112f !important;
   border-color: #d9112f !important;
+}
+
+.try-again {
+  display: flex;
+  justify-content: space-around;
 }
