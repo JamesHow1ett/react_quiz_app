@@ -1,29 +1,58 @@
 .game-start {
-  margin: 0 auto;
-  border: 2px solid #F9A826;
-  width: 450px;
-  /* height: 200px; */
-  background-color: #fff;
-  border-radius: 24px;
-  padding: 1.5em 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
-.game-start .game-start__label {
-  margin-bottom: 15px;
+.game-start .game-start__label_h1 {
+  color: #8F93DE;
 }
 
-.game-start__label_discr {
-  font-size: 15px !important;
+.game-start .game-start__label_discr {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #8F93DE;
 }
 
-.game-start__buttots {
-  margin: 7px 0;
+.game-start .game-start__form {
+  flex: 1 1 auto;
+  width: 100%;
 }
 
-.game-start__game-discr {
-  text-transform: uppercase;
+.g-s-from {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 }
 
-.game-start__button:hover {
-  background-color: #F9A826 !important;
+.g-s-from .g-s-from__item > label {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.g-s-from .g-s-from__item > label > span {
+  flex: 0 0 50%;
+  text-align: left;
+  color: #1D355D;
+}
+
+.g-s-from .g-s-from__item > label input,
+.g-s-from .g-s-from__item > label select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #1D355D;
+}
+
+.g-s-from .g-s-from__item > label input:focus-visible,
+.g-s-from .g-s-from__item > label select:focus-visible {
+  outline-color: #8F93DE;
 }

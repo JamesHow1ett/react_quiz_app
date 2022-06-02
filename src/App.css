@@ -1,8 +1,23 @@
 .App {
   text-align: center;
   background: rgba(96, 102, 208, 0.7);
-  padding: 100px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-height: 100vh;
+}
+
+.App > *:first-child {
+  flex: 1 1 70%;
+}
+
+.App > .game-start {
+  margin-top: 20px;
+  flex: 0 0 auto;
+}
+
+.App > *:nth-child(2) {
+  flex: 0 0 auto;
 }
 
 .App-logo {
@@ -47,6 +62,11 @@
 .sign {
   margin: 10px !important;
   color: #F2F2F2;
+  text-decoration: none;
+}
+
+a.sign:hover {
+  text-decoration: underline;
 }
 
 .sing-link {

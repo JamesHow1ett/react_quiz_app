@@ -1,0 +1,49 @@
+.r-btn {
+  padding: 15px 36px;
+  border: 2px solid;
+  border-radius: 12px;
+  border-color: transparent;
+  cursor: pointer;
+}
+
+.r-btn.r-btn--outlined {
+  background-color: transparent !important;
+}
+
+.r-btn.r-btn--depressed {
+  background-color: #F9A826;
+}
+
+.r-btn.r-btn--purple {
+  border-color: #1D355D;
+  background-color: #1D355D;
+  color: #fff;
+}
+
+.r-btn.r-btn--outlined.r-btn--purple {
+  color: #1D355D;
+}
+
+.r-btn.r-btn--orange {
+  border-color: #F9A826;
+  background-color: #F9A826;
+  color: #fff;
+}
+
+.r-btn.r-btn--depressed.r-btn--green {
+  border-color: #81c928;
+  background-color: #81c928;
+  color: #fff;
+}
+
+.r-btn.r-btn--sm {
+  padding: 8px 16px;
+}
+
+.r-btn.r-btn--md {
+  padding: 12px 24px;
+}
+
+.r-btn.r-btn--lg {
+  padding: 15px 36px;
+}
