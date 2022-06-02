@@ -4,9 +4,11 @@ import GameStart from './components/game_start/GameStart';
 import GameBoard from './components/game_board/GameBoard';
 import Footer from './components/footer/Footer';
 
+import { DEFAULT_GAME_OPTIONS } from './utils/constants';
+
 function App() {
-  const [isGameStarted, setIsGameStarted] = useState(true);
-  const [gameOptions, setGameOptions] = useState({});
+  const [isGameStarted, setIsGameStarted] = useState(false);
+  const [gameOptions, setGameOptions] = useState(DEFAULT_GAME_OPTIONS);
 
   const handleGemeStart = (options) => {
     setGameOptions(options);
@@ -15,7 +17,7 @@ function App() {
 
   const GameComponent = isGameStarted
     ? (<GameBoard gameOptions={gameOptions} onNewGame={() => setIsGameStarted(false)} />)
-    : <GameStart onSelectOptions={handleGemeStart} />;
+    : <GameStart gameOptions={gameOptions} onSelectOptions={handleGemeStart} />;
 
   return (
     <div className="App">

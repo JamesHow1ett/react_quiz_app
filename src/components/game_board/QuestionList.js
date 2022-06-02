@@ -61,8 +61,7 @@ function QuestionList({ currentQuestion, onAnswer }) {
     </li>
   );
 
-  // const listItems = () => currentQuestion?.data?.options?.sort().map((item, idx) => {
-  const listItems = () => currentQuestion?.data?.options?.map((item, idx) => {
+  const listItems = () => currentQuestion?.data?.options?.sort().map((item, idx) => {
     const safeKey = `${item}${idx}`;
 
     if (isAnswered) {

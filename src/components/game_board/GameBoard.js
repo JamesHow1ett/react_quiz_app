@@ -135,14 +135,12 @@ function GameBoard({ gameOptions, onNewGame }) {
 }
 
 GameBoard.propTypes = {
-  // FIXME: set as required
-  // eslint-disable-next-line react/require-default-props
   gameOptions: PropTypes.exact({
-    amount: PropTypes.number,
-    category: PropTypes.number,
+    amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    category: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     difficulty: PropTypes.string,
     type: PropTypes.string,
-  }),
+  }).isRequired,
   onNewGame: PropTypes.func.isRequired,
 };
 

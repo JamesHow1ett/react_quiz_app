@@ -56,6 +56,11 @@
 .sign {
   margin: 10px !important;
   color: #F2F2F2;
+  text-decoration: none;
+}
+
+a.sign:hover {
+  text-decoration: underline;
 }
 
 .sing-link {
