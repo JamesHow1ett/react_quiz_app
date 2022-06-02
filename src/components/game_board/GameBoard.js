@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import Storage from '../../services/Storage';
+import { useQuizQuestions } from '../../hooks/useQuizQuestions';
+import { useGameRecord } from '../../hooks/useGameRecord';
+import { converUnicode } from './utils/helpers';
+import { hasNextItem, createStoregeKey } from '../../utils/utils';
+
 import Button from '../button/Button';
 import QuestionList from './QuestionList';
 import GameResult from './GameResult';
 
 import './GameBoard.css';
-
-import { useQuizQuestions } from '../../hooks/useQuizQuestions';
-import { converUnicode } from './utils/helpers';
-import { hasNextItem } from '../../utils/utils';
 
 function GameBoard({ gameOptions, onNewGame }) {
   const [answerCorect, setAnswerCorect] = useState(false);
@@ -22,6 +24,7 @@ function GameBoard({ gameOptions, onNewGame }) {
   });
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
   const { questions, loading, fetchData } = useQuizQuestions(gameOptions);
+  const { gameRecord, handleGetGameRecord } = useGameRecord(createStoregeKey(gameOptions));
 
   useEffect(() => {
     setCurrentQuestion({
@@ -43,11 +46,20 @@ function GameBoard({ gameOptions, onNewGame }) {
   };
 
   const handleTryAgain = () => {
+    Storage.saveResults(createStoregeKey(gameOptions), result);
     setDefaultState();
     fetchData(gameOptions);
+    handleGetGameRecord();
   };
 
   const handleNewGame = () => {
+    Storage.saveResults(createStoregeKey(gameOptions), result);
+    setDefaultState();
+    onNewGame();
+    handleGetGameRecord();
+  };
+
+  const handleGoSettings = () => {
     setDefaultState();
     onNewGame();
   };
@@ -100,21 +112,24 @@ function GameBoard({ gameOptions, onNewGame }) {
                       variant="outlined"
                       color="purple"
                       className="game__buttons game__buttons_home font-poppins"
-                      onClick={() => handleNewGame()}
+                      onClick={handleGoSettings}
                     >
                       Home
                     </Button>
                     <span className="game__record font-poppins">
                       Record:&nbsp;
-                      {/* FIXME */}
-                      {localStorage.getItem('record-capitals') || 0}
+                      {gameRecord}
                     </span>
                   </div>
                   <div className="game__question">
                     <span className="game__question-counter font-poppins">
-                      Question&nbsp;
+                      Question
+                      {' '}
                       {currentQuestionNumber}
-                  &nbsp;is 10
+                      {' '}
+                      is
+                      {' '}
+                      {gameOptions.amount}
                     </span>
                     <span className="game__quiz font-poppins">
                       {converUnicode(currentQuestion.data.question ?? '')}
@@ -136,7 +151,7 @@ function GameBoard({ gameOptions, onNewGame }) {
 
 GameBoard.propTypes = {
   gameOptions: PropTypes.exact({
-    amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    amount: PropTypes.number,
     category: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     difficulty: PropTypes.string,
     type: PropTypes.string,

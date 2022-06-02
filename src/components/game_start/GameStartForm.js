@@ -107,7 +107,7 @@ function GameStartForm({ gameOptions, onGameStart }) {
 
 GameStartForm.propTypes = {
   gameOptions: PropTypes.exact({
-    amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    amount: PropTypes.number,
     category: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     difficulty: PropTypes.string,
     type: PropTypes.string,

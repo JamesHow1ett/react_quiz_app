@@ -11,18 +11,15 @@ function GameStart({ gameOptions, onSelectOptions }) {
   };
 
   return (
-    <div className="game-start">
+    <div className="game-start game-board">
       <div className="game-start font-poppins">
         <h1 className="game-start__label_h1 font-poppins">
           Welcome to the quiz
         </h1>
-        <h6 className="game-start__label_discr font-poppins">
-          Answer correctly to the questions
-        </h6>
-        <div className="game-start__buttots">
+        <div className="game-start__form">
           <div>
-            <span className="game-start__game-discr font-poppins">
-              Choise your game
+            <span className="game-start__label_discr font-poppins">
+              Select quiz options
             </span>
           </div>
           <GameStartForm
@@ -37,7 +34,7 @@ function GameStart({ gameOptions, onSelectOptions }) {
 
 GameStart.propTypes = {
   gameOptions: PropTypes.exact({
-    amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    amount: PropTypes.number,
     category: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     difficulty: PropTypes.string,
     type: PropTypes.string,

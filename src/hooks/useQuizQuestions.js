@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import api from '../Api';
+import api from '../services/Api';
 
 export const useQuizQuestions = (quizOptions) => {
   const [questions, setQuestions] = useState([]);
@@ -12,22 +11,29 @@ export const useQuizQuestions = (quizOptions) => {
     options: [...item.incorrect_answers, item.correct_answer],
   }));
 
-  const fetchData = async (opt) => {
-    const { results } = await api(opt);
-    return parseQuestions(results);
+  const fetchData = (opt) => {
+    try {
+      setLoading(true);
+      api(opt).then((res) => parseQuestions(res.results)).then(setQuestions);
+    } catch (err) {
+      console.warn(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     setLoading(true);
-    fetchData(quizOptions)
+    api(quizOptions)
+      .then((res) => parseQuestions(res.results))
       .then(setQuestions)
-      .catch((e) => {
-        console.warn(e);
+      .catch((err) => {
+        console.warn(err);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [quizOptions]);
 
-  return { questions, loading };
+  return { questions, loading, fetchData };
 };
