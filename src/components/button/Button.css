@@ -30,6 +30,12 @@
   color: #fff;
 }
 
+.r-btn.r-btn--depressed.r-btn--green {
+  border-color: #81c928;
+  background-color: #81c928;
+  color: #fff;
+}
+
 .r-btn.r-btn--sm {
   padding: 8px 16px;
 }

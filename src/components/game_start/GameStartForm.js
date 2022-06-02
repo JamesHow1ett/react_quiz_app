@@ -28,11 +28,13 @@ function GameStartForm({ gameOptions, onGameStart }) {
     <form className="g-s-from">
       <div className="g-s-from__item">
         <label htmlFor="amount">
-          Number of Questions:
+          <span>Number of Questions:</span>
           <input
             id="amount"
-            type="text"
+            type="number"
             name="amount"
+            min={1}
+            max={50}
             value={rawGameOptions.amount}
             onInput={handleUpdate}
           />
@@ -40,7 +42,7 @@ function GameStartForm({ gameOptions, onGameStart }) {
       </div>
       <div className="g-s-from__item">
         <label htmlFor="category">
-          Select Category:
+          <span>Select Category:</span>
           <select
             id="category"
             name="category"
@@ -58,7 +60,7 @@ function GameStartForm({ gameOptions, onGameStart }) {
       </div>
       <div className="g-s-from__item">
         <label htmlFor="difficulty">
-          Select Difficulty:
+          <span>Select Difficulty:</span>
           <select
             id="difficulty"
             name="difficulty"
@@ -76,7 +78,7 @@ function GameStartForm({ gameOptions, onGameStart }) {
       </div>
       <div className="g-s-from__item">
         <label htmlFor="type">
-          Select Type:
+          <span>Select Type:</span>
           <select
             id="type"
             name="type"
@@ -92,10 +94,10 @@ function GameStartForm({ gameOptions, onGameStart }) {
           </select>
         </label>
       </div>
-      <div className="g-s-from__item">
+      <div className="g-s-from__submit">
         <Button
-          variant="outlined"
-          className="game-start__button font-poppins"
+          variant="depressed"
+          color="green"
           onClick={handleOnGameStart}
         >
           Start new Game
