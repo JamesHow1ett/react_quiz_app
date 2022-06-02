@@ -38,6 +38,8 @@
 ![screenshot](./src/assets/Screenshot_1.PNG?raw=true)
 ![screenshot](./src/assets/Screenshot_2.PNG?raw=true)
 ![screenshot](./src/assets/Screenshot_3.PNG?raw=true)
+![screenshot](./src/assets/Screenshot_4.PNG?raw=true)
+![screenshot](./src/assets/Screenshot_5.PNG?raw=true)
 
 Hello, my name is Oleksandr Skorokhod. I'm a front-end developer. There is my React Quiz App. While developing I have used:
 

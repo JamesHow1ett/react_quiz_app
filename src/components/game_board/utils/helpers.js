@@ -11,7 +11,8 @@ const HtmlSymbols = {
   '&#039;': "'",
 };
 
-export const keyPressHandler = (event) => {};
+// FIXME: add keyBoard event
+// export const keyPressHandler = (event) => {};
 
 /**
  * @param {String} input - question title with unicode

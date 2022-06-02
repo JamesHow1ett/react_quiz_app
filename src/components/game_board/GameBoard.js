@@ -92,7 +92,7 @@ function GameBoard({ gameOptions, onNewGame }) {
 
   return (
     <div className="capitals-block">
-      <h2 className="capitals__label font-poppins">Capitals Quiz</h2>
+      <h2 className="capitals__label font-poppins">Quiz App</h2>
       {loading
         ? (<div className="game-board">Loading...</div>)
         : (
