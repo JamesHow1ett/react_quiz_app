@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  padding: 0 10px;
 }
 
 .App > *:first-child {
@@ -82,4 +83,18 @@ a.sign:hover {
 
 .sing-link:hover {
   background-color: #F9A826;
+}
+
+@media (max-width: 540px) {
+  .App {
+    padding-bottom: 10px;
+  }
+
+  .App > *:nth-child(2) {
+    order: -1;
+  }
+
+  .App > .game-start {
+    margin-top: 0;
+  }
 }

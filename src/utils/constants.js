@@ -4,3 +4,9 @@ export const DEFAULT_GAME_OPTIONS = {
   difficulty: 'medium',
   type: 'multiple',
 };
+
+export const GAME_DIFFICULTY_LENGTH = {
+  easy: 60,
+  medium: 45,
+  hard: 30,
+};
