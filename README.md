@@ -71,6 +71,7 @@ This application was created as a submission to a [DevChallenges](https://devcha
  -  User story: When I answer incorrectly, I can see my results and try again
  -  User story: I can try again
  -  User story (optional): I can see the highest score I have ever had
+ -  User story (optional): I can see the round countdown
 
 
 ## How To Use

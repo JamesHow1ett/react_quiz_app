@@ -8,12 +8,13 @@ import { converUnicode } from './utils/helpers';
 import { hasNextItem, createStoregeKey } from '../../utils/utils';
 
 import Button from '../button/Button';
+import RoundCountdown from '../countdown/Countdown';
 import QuestionList from './QuestionList';
 import GameResult from './GameResult';
 
 import './GameBoard.css';
 
-function GameBoard({ gameOptions, onNewGame }) {
+function GameBoard({ gameOptions, countdownCounter, onNewGame }) {
   const [answerCorect, setAnswerCorect] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState(0);
@@ -90,6 +91,10 @@ function GameBoard({ gameOptions, onNewGame }) {
     setResult((prev) => prev + Number(isGetPoint));
   };
 
+  const countdownCallback = () => {
+    setShowResult(true);
+  };
+
   return (
     <div className="capitals-block">
       <h2 className="capitals__label font-poppins">Quiz App</h2>
@@ -116,6 +121,13 @@ function GameBoard({ gameOptions, onNewGame }) {
                     >
                       Home
                     </Button>
+                    {!answer && (
+                    <RoundCountdown
+                      counter={countdownCounter}
+                      isAnswered={Boolean(answer)}
+                      onCallback={countdownCallback}
+                    />
+                    )}
                     <span className="game__record font-poppins">
                       Record:&nbsp;
                       {gameRecord}
@@ -138,8 +150,24 @@ function GameBoard({ gameOptions, onNewGame }) {
                   <QuestionList currentQuestion={currentQuestion} onAnswer={onAnswer} />
                   <div className="game__go-next">
                     {answer && (
-                      (answerCorect && (<Button variant="depressed" color="orange" onClick={() => nextQustion()}>Next</Button>))
-            || (<Button variant="depressed" color="orange" onClick={() => setShowResult(true)}>See Results</Button>))}
+                      (answerCorect && (
+                      <Button
+                        variant="depressed"
+                        color="orange"
+                        onClick={() => nextQustion()}
+                      >
+                        Next
+                      </Button>
+                      ))
+                      || (
+                      <Button
+                        variant="depressed"
+                        color="orange"
+                        onClick={() => setShowResult(true)}
+                      >
+                        See Results
+                      </Button>
+                      ))}
                   </div>
                 </>
               )}
@@ -156,6 +184,7 @@ GameBoard.propTypes = {
     difficulty: PropTypes.string,
     type: PropTypes.string,
   }).isRequired,
+  countdownCounter: PropTypes.number.isRequired,
   onNewGame: PropTypes.func.isRequired,
 };
 

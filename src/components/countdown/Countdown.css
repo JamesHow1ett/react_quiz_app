@@ -1,0 +1,24 @@
+.countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid silver;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.countdown .countdown__text {
+  min-width: 24px;
+}
+
+.countdown.green {
+  border-color: green;
+}
+
+.countdown.yellow {
+  border-color: yellow;
+}
+
+.countdown.red {
+  border-color: red;
+}

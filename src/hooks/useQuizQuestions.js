@@ -8,13 +8,16 @@ export const useQuizQuestions = (quizOptions) => {
 
   const parseQuestions = (apiData = []) => apiData.map((item) => ({
     ...item,
-    options: [...item.incorrect_answers, item.correct_answer],
+    options: [...item.incorrect_answers, item.correct_answer].sort(),
   }));
 
   const fetchData = (opt) => {
     try {
       setLoading(true);
-      api(opt).then((res) => parseQuestions(res.results)).then(setQuestions);
+
+      api(opt)
+        .then((res) => parseQuestions(res.results))
+        .then(setQuestions);
     } catch (err) {
       console.warn(err);
     } finally {
@@ -24,6 +27,7 @@ export const useQuizQuestions = (quizOptions) => {
 
   useEffect(() => {
     setLoading(true);
+
     api(quizOptions)
       .then((res) => parseQuestions(res.results))
       .then(setQuestions)
